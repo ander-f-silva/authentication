@@ -11,6 +11,8 @@ O sistema esta publicado no Heroku
 
 Segue os endpoints do serviço:
 
+## Cadastro
+
 * Restfull para realizar o cadastro do usuário
 
 https://authentication-01.herokuapp.com/user
@@ -30,12 +32,15 @@ Método usado é POST
   ]
 }
 ```
+## Login
 
 * Restfull para autenticar no sistema
 
 https://authentication-01.herokuapp.com/login?email={email}&password={passoword}
 
 Método usado é GET
+
+## Perfil
 
 * Restfull para recuperar o pefil
 
