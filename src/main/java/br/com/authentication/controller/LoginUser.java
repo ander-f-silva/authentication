@@ -9,13 +9,15 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.authentication.dto.Login;
 import br.com.authentication.exception.EncryptionException;
 import br.com.authentication.exception.LoginOrPasswordInvalidException;
 import br.com.authentication.exception.MessageError;
@@ -43,9 +45,9 @@ public class LoginUser {
      * @throws LoginOrPasswordInvalidException
      * @throws EncryptionException
      */
-    @RequestMapping(method = RequestMethod.GET, produces = { APPLICATION_JSON_VALUE, APPLICATION_JSON_UTF8_VALUE })
-    public ResponseEntity<User> authentication(@RequestParam(name = "email", required = true) final String email, @RequestParam(name = "password", required = true) final String password) throws LoginOrPasswordInvalidException, EncryptionException {
-	return new ResponseEntity<User>(authentication.login(email, password), OK);
+    @RequestMapping(method = RequestMethod.POST, produces = { APPLICATION_JSON_VALUE, APPLICATION_JSON_UTF8_VALUE })
+    public ResponseEntity<User> authentication(@Validated @RequestBody final Login login) throws LoginOrPasswordInvalidException, EncryptionException {
+	return new ResponseEntity<User>(authentication.login(login), OK);
     }
 
     /**

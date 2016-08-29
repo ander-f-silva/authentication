@@ -36,9 +36,16 @@ Método usado é POST
 
 * Restfull para autenticar no sistema
 
-https://authentication-01.herokuapp.com/login?email={email}&password={passoword}
+https://authentication-01.herokuapp.com/login
 
-Método usado é GET
+Método usado é POST
+
+```
+{
+    "email":"joao3@silva2.io",
+    "password":"1234"
+}
+```
 
 ## Perfil
 

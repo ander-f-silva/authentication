@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.authentication.component.Encrypts;
+import br.com.authentication.dto.Login;
 import br.com.authentication.exception.EncryptionException;
 import br.com.authentication.exception.LoginOrPasswordInvalidException;
 import br.com.authentication.respository.UserRespository;
@@ -35,8 +36,8 @@ public class AuthenticationUser implements Authenticates {
      * @throws EncryptionException
      */
     @Override
-    public User login(final String email, final String password) throws LoginOrPasswordInvalidException, EncryptionException {
-	User user = userRepository.findByEmailAndPassword(email, encrypts.encryptShaTwo(password));
+    public User login(final Login login) throws LoginOrPasswordInvalidException, EncryptionException {
+	User user = userRepository.findByEmailAndPassword(login.getEmail(), encrypts.encryptShaTwo(login.getPassword()));
 
 	if (null == user)
 	    throw new LoginOrPasswordInvalidException();
