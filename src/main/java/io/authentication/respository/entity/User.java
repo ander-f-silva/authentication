@@ -65,7 +65,7 @@ public class User implements Serializable {
     @Column(name = "TOKEN")
     private String token;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch= FetchType.EAGER)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch= FetchType.LAZY)
     private Set<Phone> phones = new HashSet<Phone>();
 
     public User() {
@@ -76,6 +76,13 @@ public class User implements Serializable {
 	this.name = name;
 	this.email = email;
 	this.password = password;
+	
+	if (phones != null && !phones.isEmpty()) {
+	    for (Phone phone : phones) {
+		phone.setUser(this);
+	    }
+	}
+	
 	this.phones = phones;
 	this.created = start;
 	this.lastLogin = start;
