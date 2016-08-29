@@ -35,10 +35,13 @@ Método usado é POST
 
 https://authentication-01.herokuapp.com?email={email}&password={passoword}
 
+Método usado é GET
 
 *Restfull para recuperar o pefil
 
 https://authentication-01.herokuapp.com/profile/user/1
+
+Método usado é GET
 
 Observação No header informar a propriedade token com o valor
 
