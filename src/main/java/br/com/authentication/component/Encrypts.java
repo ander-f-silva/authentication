@@ -1,6 +1,6 @@
-package io.authentication.component;
+package br.com.authentication.component;
 
-import io.authentication.exception.EncryptionException;
+import br.com.authentication.exception.EncryptionException;
 
 /**
  * Interface para implantar a criptografia

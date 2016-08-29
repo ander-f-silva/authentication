@@ -1,4 +1,4 @@
-package io.authentication.component;
+package br.com.authentication.component;
 
 import java.time.LocalDateTime;
 

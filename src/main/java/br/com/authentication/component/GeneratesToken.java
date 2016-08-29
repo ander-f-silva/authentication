@@ -1,4 +1,4 @@
-package io.authentication.component;
+package br.com.authentication.component;
 
 /**
  * Interface para implementar a geração do token
