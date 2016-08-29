@@ -2,16 +2,16 @@
 
 Para realizar a solução foram realizada as seguintes tecnologias:
 
-*Spring Data (Hibernate versão mais atual 5.0.3Concrete);
-*Spring Boot com Tomcat;
-*Jwt para gerar token.
-*Java versão 1.8
+* Spring Data (Hibernate versão mais atual 5.0.3Concrete);
+* Spring Boot com Tomcat;
+* Jwt para gerar token.
+* Java versão 1.8
 
 O sistema esta publicado no Heroku
 
 Segue os endpoints do serviço:
 
-*Restfull para realizar o cadastro do usuário
+* Restfull para realizar o cadastro do usuário
 
 https://authentication-01.herokuapp.com/user
 
@@ -31,13 +31,13 @@ Método usado é POST
 }
 ```
 
-*Restfull para autenticar no sistema
+* Restfull para autenticar no sistema
 
 https://authentication-01.herokuapp.com?email={email}&password={passoword}
 
 Método usado é GET
 
-*Restfull para recuperar o pefil
+* Restfull para recuperar o pefil
 
 https://authentication-01.herokuapp.com/profile/user/1
 
