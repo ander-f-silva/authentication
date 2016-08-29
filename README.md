@@ -44,7 +44,7 @@ Método usado é GET
 
 * Restfull para recuperar o pefil
 
-https://authentication-01.herokuapp.com/profile/user/1
+https://authentication-01.herokuapp.com/profile/user/{id}
 
 Método usado é GET
 
