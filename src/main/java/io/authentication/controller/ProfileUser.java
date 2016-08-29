@@ -47,11 +47,10 @@ public class ProfileUser {
      * @throws NotAuthorizedException
      */
     @RequestMapping(value = "/user/{userId}", method = RequestMethod.GET, produces = { APPLICATION_JSON_VALUE, APPLICATION_JSON_UTF8_VALUE })
-    public @ResponseBody ResponseEntity<User> retrieveProfile(@RequestHeader(value = "Token") final String token, @PathVariable("userId") final Long userId) throws NotAuthorizedException, SessionInvalidatesException {
+    public @ResponseBody ResponseEntity<User> retrieveProfile(@RequestHeader(value = "token", required = true) final String token, @PathVariable("userId") final Long userId) throws NotAuthorizedException, SessionInvalidatesException {
 	return new ResponseEntity<User>(recoversProfile.retrieveUserProfile(token, userId), OK);
     }
-    
-    
+
     /**
      * Handler para exibir mensagem permissão não autorizado
      * 
@@ -64,10 +63,10 @@ public class ProfileUser {
     public @ResponseBody MessageError handleNotAuthorizedException(HttpServletRequest request, Exception ex) {
 	return new MessageError(ex.getMessage());
     }
-    
+
     /**
-     * Handler para Sessão inválida
-     * (observação: nesta versão não esta disponviel o erro 440 para sessão expirada.)
+     * Handler para Sessão inválida (observação: nesta versão não esta
+     * disponviel o erro 440 para sessão expirada.)
      * 
      * @param request
      * @param ex

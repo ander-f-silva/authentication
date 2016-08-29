@@ -2,6 +2,8 @@ package io.authentication.exception;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.ServletRequestBindingException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -26,4 +28,15 @@ public class GlobalException {
     public @ResponseBody MessageError handleException(HttpServletRequest request, Exception ex) {
 	return new MessageError("Falha ocorrida no sistema. Favor entrar em contato com administrador do sistema.");
     }
+    
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public @ResponseBody MessageError handleMethodArgumentNotValidException(HttpServletRequest request, Exception ex) {
+	return new MessageError(ex.getMessage());
+    }
+    
+    @ExceptionHandler(ServletRequestBindingException.class)
+    public @ResponseBody MessageError handleServletRequestBindingException(HttpServletRequest request, Exception ex) {
+	return new MessageError(ex.getMessage());
+    }
+    
 }
