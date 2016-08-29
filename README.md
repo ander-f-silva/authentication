@@ -33,7 +33,7 @@ Método usado é POST
 
 * Restfull para autenticar no sistema
 
-https://authentication-01.herokuapp.com?email={email}&password={passoword}
+https://authentication-01.herokuapp.com/login?email={email}&password={passoword}
 
 Método usado é GET
 
