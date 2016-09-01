@@ -2,7 +2,7 @@
 
 Para realizar a solução foram realizada as seguintes tecnologias:
 
-* Spring Data (Hibernate versão mais atual 5.0.3Concrete);
+* Spring Data (Hibernate versão mais atual 5.0.3);
 * Spring Boot com Tomcat;
 * Jwt para gerar token.
 * Java versão 1.8
