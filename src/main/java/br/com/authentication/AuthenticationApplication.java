@@ -1,10 +1,6 @@
 package br.com.authentication;
 
 import java.io.IOException;
-import java.util.logging.FileHandler;
-import java.util.logging.Handler;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -29,10 +25,6 @@ public class AuthenticationApplication {
      * @throws SecurityException 
      */
     public static void main(String[] args) throws SecurityException, IOException {
-	 Handler fh = new FileHandler("%t/authentication.log");
-	 Logger.getLogger("").addHandler(fh);
-	 Logger.getLogger("br.com.authentication").setLevel(Level.ALL);
-	
 	SpringApplication.run(AuthenticationApplication.class, args);
     }
 }
