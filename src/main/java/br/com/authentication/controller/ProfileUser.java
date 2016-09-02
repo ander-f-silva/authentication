@@ -4,6 +4,9 @@ import static org.springframework.http.HttpStatus.OK;
 import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +35,8 @@ import br.com.authentication.service.RecoversProfile;
 @RequestMapping("/profile")
 public class ProfileUser {
 
+    private final Logger logger = Logger.getLogger("br.com.authentication.controller");
+    
     @Autowired
     private RecoversProfile recoversProfile;
 
@@ -47,7 +52,9 @@ public class ProfileUser {
      */
     @RequestMapping(value = "/user/{userId}", method = RequestMethod.GET, produces = { APPLICATION_JSON_VALUE, APPLICATION_JSON_UTF8_VALUE })
     public ResponseEntity<User> retrieveProfile(@RequestHeader(value = "token", required = true) final String token, @PathVariable("userId") final Long userId) throws NotAuthorizedException, SessionInvalidatesException {
-	return new ResponseEntity<User>(recoversProfile.retrieveUserProfile(token, userId), OK);
+	ResponseEntity<User> response = new ResponseEntity<User>(recoversProfile.retrieveUserProfile(token, userId), OK);
+	logger.info("Consulta de perfil ocorrido com sucesso");
+	return response;
     }
 
     /**
@@ -60,6 +67,7 @@ public class ProfileUser {
     @ExceptionHandler(NotAuthorizedException.class)
     @ResponseStatus(value = HttpStatus.UNAUTHORIZED)
     public MessageError handleNotAuthorizedException(HttpServletRequest request, Exception ex) {
+	logger.log(Level.SEVERE, "Erro durante a consulta do perfil", ex);
 	return new MessageError(ex.getMessage());
     }
 
@@ -74,6 +82,7 @@ public class ProfileUser {
     @ExceptionHandler(SessionInvalidatesException.class)
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
     public MessageError handleSessionInvalidatesException(HttpServletRequest request, Exception ex) {
+	logger.log(Level.SEVERE, "Erro durante o processo de login", ex);
 	return new MessageError(ex.getMessage());
     }
 }

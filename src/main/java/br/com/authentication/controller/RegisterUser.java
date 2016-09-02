@@ -4,6 +4,9 @@ import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
@@ -32,6 +35,8 @@ import br.com.authentication.service.Register;
 @RequestMapping("/user")
 public class RegisterUser {
 
+    private final Logger logger = Logger.getLogger("br.com.authentication.controller");
+    
     @Autowired
     private Register register;
 
@@ -45,7 +50,9 @@ public class RegisterUser {
      */
     @RequestMapping(method = RequestMethod.POST, produces = { APPLICATION_JSON_VALUE, APPLICATION_JSON_UTF8_VALUE })
     public ResponseEntity<User> create(@Valid @RequestBody final User user) throws EmailRegisterException, EncryptionException {
-	return new ResponseEntity<User>(register.create(user), CREATED);
+	ResponseEntity<User> response = new ResponseEntity<User>(register.create(user), CREATED);
+	logger.info("Cadastrao realizado com sucesso");
+	return response;
     }
 
     /**
@@ -58,6 +65,7 @@ public class RegisterUser {
     @ExceptionHandler(EmailRegisterException.class)
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
     public MessageError handleEmailRegisterException(HttpServletRequest request, Exception ex) {
+	logger.log(Level.SEVERE, "Erro no processo de cadastro do usuário", ex);
 	return new MessageError(ex.getMessage());
     }
 }

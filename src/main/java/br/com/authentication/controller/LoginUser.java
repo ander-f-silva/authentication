@@ -4,6 +4,9 @@ import static org.springframework.http.HttpStatus.OK;
 import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +36,8 @@ import br.com.authentication.service.Authenticates;
 @RequestMapping("/login")
 public class LoginUser {
 
+    private final Logger logger = Logger.getLogger("br.com.authentication.controller");
+    
     @Autowired
     private Authenticates authentication;
 
@@ -47,7 +52,9 @@ public class LoginUser {
      */
     @RequestMapping(method = RequestMethod.POST, produces = { APPLICATION_JSON_VALUE, APPLICATION_JSON_UTF8_VALUE })
     public ResponseEntity<User> authentication(@Validated @RequestBody final Login login) throws LoginOrPasswordInvalidException, EncryptionException {
-	return new ResponseEntity<User>(authentication.login(login), OK);
+	ResponseEntity<User> response = new ResponseEntity<User>(authentication.login(login), OK);
+	logger.info("Login ocorrido com sucesso");
+	return response;
     }
 
     /**
@@ -60,6 +67,7 @@ public class LoginUser {
     @ExceptionHandler(LoginOrPasswordInvalidException.class)
     @ResponseStatus(value = HttpStatus.UNAUTHORIZED)
     public MessageError handleLoginOrPasswordInvalidException(HttpServletRequest request, Exception ex) {
+	logger.log(Level.SEVERE, "Erro durante o processo de login", ex);
 	return new MessageError(ex.getMessage());
     }
 }
