@@ -1,11 +1,9 @@
-package br.com.authentication.component.impl;
-
-import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
+package br.com.authentication.component;
 
 import org.springframework.stereotype.Component;
 
-import br.com.authentication.component.CalculatesMinutes;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 
 /**
  * Classe de Implementacao para calculo de horas
@@ -13,7 +11,7 @@ import br.com.authentication.component.CalculatesMinutes;
  * @author anderson
  */
 @Component("calculatesMinutes")
-public class CalculationMinutes implements CalculatesMinutes {
+public class CalculationMinutes {
 
     /**
      * Método para calcular o intervalo de horas entre duas datas
@@ -22,9 +20,8 @@ public class CalculationMinutes implements CalculatesMinutes {
      * @param horaEnd
      * @return result calculate
      */
-    @Override
     public long calculate(final LocalDateTime horaStart, final LocalDateTime horaEnd) {
-	return ChronoUnit.MINUTES.between(horaStart, horaEnd);
+	    return ChronoUnit.MINUTES.between(horaStart, horaEnd);
     }
     
 }

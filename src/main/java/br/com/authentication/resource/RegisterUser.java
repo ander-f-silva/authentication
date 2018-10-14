@@ -1,4 +1,4 @@
-package br.com.authentication.controller;
+package br.com.authentication.resource;
 
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE;
@@ -23,11 +23,10 @@ import br.com.authentication.exception.EmailRegisterException;
 import br.com.authentication.exception.EncryptionException;
 import br.com.authentication.exception.MessageError;
 import br.com.authentication.respository.entity.User;
-import br.com.authentication.service.Register;
 
 /**
  * Serviço para cadastrar um novo usuário
- * 
+ *
  * @author anderson
  */
 @RestController
@@ -35,29 +34,29 @@ import br.com.authentication.service.Register;
 public class RegisterUser {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
-    
+
     @Autowired
-    private Register register;
+    private RegisterUser register;
 
     /**
      * Médodo usado para realizar o cadastro do cliente.
-     * 
+     *
      * @param user
      * @return Response Entity
      * @throws EmailRegisterException
      * @throws EncryptionException
      */
-    @RequestMapping(method = RequestMethod.POST, produces = { APPLICATION_JSON_VALUE, APPLICATION_JSON_UTF8_VALUE })
+    @RequestMapping(method = RequestMethod.POST, produces = {APPLICATION_JSON_VALUE, APPLICATION_JSON_UTF8_VALUE})
     public ResponseEntity<User> create(@Valid @RequestBody final User user) throws EmailRegisterException, EncryptionException {
-	logger.info("Iniciando o cadastro do usuário");
-	ResponseEntity<User> response = new ResponseEntity<User>(register.create(user), CREATED);
-	logger.info("Cadastrao realizado com sucesso");
-	return response;
+        logger.info("Iniciando o cadastro do usuário");
+        ResponseEntity<User> response = new ResponseEntity<User>(register.create(user), CREATED);
+        logger.info("Cadastrao realizado com sucesso");
+        return response;
     }
 
     /**
      * Handler para exibir mensagem usuário invalido
-     * 
+     *
      * @param request
      * @param ex
      * @return messageError
@@ -65,7 +64,7 @@ public class RegisterUser {
     @ExceptionHandler(EmailRegisterException.class)
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
     public MessageError handleEmailRegisterException(HttpServletRequest request, Exception ex) {
-	logger.error("Erro no processo de cadastro do usuário", ex);
-	return new MessageError(ex.getMessage());
+        logger.error("Erro no processo de cadastro do usuário", ex);
+        return new MessageError(ex.getMessage());
     }
 }

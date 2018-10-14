@@ -5,7 +5,7 @@ package br.com.authentication.exception;
  * 
  * @author anderson
  */
-public class EncryptionException extends Exception {
+public class EncryptionException extends RuntimeException {
 
     private static final long serialVersionUID = -1016010326713713248L;
 

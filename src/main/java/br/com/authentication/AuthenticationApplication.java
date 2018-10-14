@@ -1,7 +1,5 @@
 package br.com.authentication;
 
-import java.io.IOException;
-
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -14,17 +12,16 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  */
 @SpringBootApplication
 @EnableAutoConfiguration
-public class AuthenticationApplication {
+class AuthenticationApplication {
 
     
     /**
      * Método iniciar a spring boot
      * 
      * @param args
-     * @throws IOException 
-     * @throws SecurityException 
+     * @throws SecurityException
      */
-    public static void main(String[] args) throws SecurityException, IOException {
+    public static void main(String[] args) throws SecurityException {
 	SpringApplication.run(AuthenticationApplication.class, args);
     }
 }

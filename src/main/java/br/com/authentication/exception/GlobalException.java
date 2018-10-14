@@ -12,38 +12,38 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 /**
  * Captura alguma expetion não identificada no sistema
- * 
+ *
  * @author anderson
  *
  */
 @RestControllerAdvice
-public class GlobalException {
+class GlobalException {
 
-    
+
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
-    
+
     /**
      * Método Handler para capturar erros não tratados no sistema
-     * 
+     *
      * @param request
      * @param ex
      * @return Mensagem de Erro que será transformado no formato json
      */
     @ExceptionHandler(Exception.class)
     public MessageError handleException(HttpServletRequest request, Exception ex) {
-	logger.error("Erro inesperado", ex);
-	return new MessageError("Falha ocorrida no sistema. Favor entrar em contato com administrador do sistema.");
+        logger.error("Erro inesperado", ex);
+        return new MessageError("Falha ocorrida no sistema. Favor entrar em contato com administrador do sistema.");
     }
-    
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public MessageError handleMethodArgumentNotValidException(HttpServletRequest request, Exception ex) {
-	logger.error("Argumentos Invalidos", ex);
-	return new MessageError(ex.getMessage());
+        logger.error("Argumentos Invalidos", ex);
+        return new MessageError(ex.getMessage());
     }
-    
+
     @ExceptionHandler(ServletRequestBindingException.class)
     public MessageError handleServletRequestBindingException(HttpServletRequest request, Exception ex) {
-	logger.error("Request Invalido", ex);
-	return new MessageError(ex.getMessage());
+        logger.error("Request Invalido", ex);
+        return new MessageError(ex.getMessage());
     }
 }

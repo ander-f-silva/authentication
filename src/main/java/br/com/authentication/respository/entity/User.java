@@ -3,6 +3,7 @@ package br.com.authentication.respository.entity;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -14,8 +15,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
-import org.hibernate.validator.constraints.NotEmpty;
+import javax.validation.constraints.NotEmpty;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -24,7 +24,7 @@ import br.com.authentication.json.customer.LocalDateTimeSerializer;
 
 /**
  * Entidade que respresenta os dados do Usuario
- * 
+ *
  * @author anderson
  */
 @Entity
@@ -65,140 +65,94 @@ public class User implements Serializable {
     @Column(name = "TOKEN")
     private String token;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch= FetchType.LAZY)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Phone> phones = new HashSet<Phone>();
 
-    public User() {
-
-    }
+    @Deprecated
+    public User() { }
 
     public User(String name, String email, String password, Set<Phone> phones, LocalDateTime start, String token) {
-	this.name = name;
-	this.email = email;
-	this.password = password;
-	
-	if (phones != null && !phones.isEmpty()) {
-	    for (Phone phone : phones) {
-		phone.setUser(this);
-	    }
-	}
-	
-	this.phones = phones;
-	this.created = start;
-	this.lastLogin = start;
-	this.token = token;
+        this.name = name;
+        this.email = email;
+        this.password = password;
+
+        if (phones != null && !phones.isEmpty()) {
+            phones.stream().forEach(phone -> phone.setUser(this));
+        }
+
+        this.phones = phones;
+        this.created = start;
+        this.lastLogin = start;
+        this.token = token;
     }
 
     @JsonProperty("id")
     public Long getId() {
-	return id;
-    }
-
-    public void setId(Long id) {
-	this.id = id;
+        return id;
     }
 
     @JsonProperty("name")
     public String getName() {
-	return name;
-    }
-
-    public void setName(String name) {
-	this.name = name;
+        return name;
     }
 
     @JsonProperty("email")
     public String getEmail() {
-	return email;
-    }
-
-    public void setEmail(String email) {
-	this.email = email;
+        return email;
     }
 
     @JsonProperty("password")
     public String getPassword() {
-	return password;
-    }
-
-    public void setPassword(String password) {
-	this.password = password;
+        return password;
     }
 
     @JsonProperty("phones")
     public Set<Phone> getPhones() {
-	return phones;
-    }
-
-    public void setPhones(Set<Phone> phones) {
-	this.phones = phones;
+        return phones;
     }
 
     @JsonProperty("create")
     public LocalDateTime getCreated() {
-	return created;
-    }
-
-    public void setCreated(LocalDateTime created) {
-	this.created = created;
+        return created;
     }
 
     @JsonProperty("last_login")
     public LocalDateTime getLastLogin() {
-	return lastLogin;
+        return lastLogin;
     }
 
     public void setLastLogin(LocalDateTime lastLogin) {
-	this.lastLogin = lastLogin;
+        this.lastLogin = lastLogin;
     }
 
     @JsonProperty("token")
     public String getToken() {
-	return token;
-    }
-
-    public void setToken(String token) {
-	this.token = token;
+        return token;
     }
 
     @JsonProperty("modified")
     public LocalDateTime getModified() {
-	return modified;
+        return modified;
     }
 
-    public void setModified(LocalDateTime modified) {
-	this.modified = modified;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Objects.equals(id, user.id) &&
+                Objects.equals(name, user.name) &&
+                Objects.equals(email, user.email) &&
+                Objects.equals(password, user.password) &&
+                Objects.equals(created, user.created) &&
+                Objects.equals(modified, user.modified) &&
+                Objects.equals(lastLogin, user.lastLogin) &&
+                Objects.equals(token, user.token) &&
+                Objects.equals(phones, user.phones);
     }
 
     @Override
     public int hashCode() {
-	final int prime = 31;
-	int result = 1;
-	result = prime * result + ((email == null) ? 0 : email.hashCode());
-	result = prime * result + ((id == null) ? 0 : id.hashCode());
-	return result;
+        return Objects.hash(id, name, email, password, created, modified, lastLogin, token, phones);
     }
-
-    @Override
-    public boolean equals(Object obj) {
-	if (this == obj)
-	    return true;
-	if (obj == null)
-	    return false;
-	if (getClass() != obj.getClass())
-	    return false;
-	User other = (User) obj;
-	if (email == null) {
-	    if (other.email != null)
-		return false;
-	} else if (!email.equals(other.email))
-	    return false;
-	if (id == null) {
-	    if (other.id != null)
-		return false;
-	} else if (!id.equals(other.id))
-	    return false;
-	return true;
-    }
-
 }

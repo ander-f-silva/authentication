@@ -16,6 +16,7 @@ public class MessageError implements Serializable {
     /**
      * Construtor Padrão
      */
+    @Deprecated
     public MessageError() {
 
     }

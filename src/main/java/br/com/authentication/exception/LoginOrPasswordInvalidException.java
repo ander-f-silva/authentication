@@ -5,7 +5,7 @@ package br.com.authentication.exception;
  * 
  * @author anderson
  */
-public class LoginOrPasswordInvalidException extends Exception {
+public class LoginOrPasswordInvalidException extends RuntimeException {
 
     private static final long serialVersionUID = -7607615499230706368L;
 

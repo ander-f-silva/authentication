@@ -1,6 +1,7 @@
 package br.com.authentication.respository.entity;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,7 +16,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * Entidade que respresenta os dados do Telefone
- * 
+ *
  * @author anderson
  */
 @Entity
@@ -40,84 +41,46 @@ public class Phone implements Serializable {
     @Column(name = "DDD", length = 3)
     private Short ddd;
 
+    @Deprecated
     public Phone() {
 
     }
 
     public Long getId() {
-	return id;
-    }
-
-    public void setId(Long id) {
-	this.id = id;
+        return id;
     }
 
     public User getUser() {
-	return user;
+        return user;
     }
 
     public void setUser(User user) {
-	this.user = user;
+        this.user = user;
     }
 
     @JsonProperty("number")
     public Long getNumber() {
-	return number;
-    }
-
-    public void setNumber(Long number) {
-	this.number = number;
+        return number;
     }
 
     @JsonProperty("ddd")
     public Short getDdd() {
-	return ddd;
+        return ddd;
     }
 
-    public void setDdd(Short ddd) {
-	this.ddd = ddd;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Phone phone = (Phone) o;
+        return Objects.equals(id, phone.id) &&
+                Objects.equals(user, phone.user) &&
+                Objects.equals(number, phone.number) &&
+                Objects.equals(ddd, phone.ddd);
     }
 
     @Override
     public int hashCode() {
-	final int prime = 31;
-	int result = 1;
-	result = prime * result + ((ddd == null) ? 0 : ddd.hashCode());
-	result = prime * result + ((id == null) ? 0 : id.hashCode());
-	result = prime * result + ((number == null) ? 0 : number.hashCode());
-	result = prime * result + ((user == null) ? 0 : user.hashCode());
-	return result;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-	if (this == obj)
-	    return true;
-	if (obj == null)
-	    return false;
-	if (getClass() != obj.getClass())
-	    return false;
-	Phone other = (Phone) obj;
-	if (ddd == null) {
-	    if (other.ddd != null)
-		return false;
-	} else if (!ddd.equals(other.ddd))
-	    return false;
-	if (id == null) {
-	    if (other.id != null)
-		return false;
-	} else if (!id.equals(other.id))
-	    return false;
-	if (number == null) {
-	    if (other.number != null)
-		return false;
-	} else if (!number.equals(other.number))
-	    return false;
-	if (user == null) {
-	    if (other.user != null)
-		return false;
-	} else if (!user.equals(other.user))
-	    return false;
-	return true;
+        return Objects.hash(id, user, number, ddd);
     }
 }

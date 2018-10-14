@@ -5,7 +5,7 @@ package br.com.authentication.exception;
  * 
  * @author andersono
  */
-public class SessionInvalidatesException extends Exception {
+public class SessionInvalidatesException extends RuntimeException {
 
     private static final long serialVersionUID = 6267958863713211964L;
     

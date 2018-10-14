@@ -1,13 +1,12 @@
-# Solução do Teste
+# Serviço para realizar autenticação
 
 Para realizar a solução foram realizada as seguintes tecnologias:
 
-* Spring Data (Hibernate versão mais atual 5.0.3);
-* Spring Boot com Tomcat;
+* Spring Data (Hibernate versão atualizado para versão 5.2.17);
+* Spring Boot com Tomcat - atualizado para versão 2.0.5;
 * Jwt para gerar token.
-* Java versão 1.8
+* Java versão 1.8 - JDK Oracle
 
-O sistema esta publicado no Heroku
 
 Segue os endpoints do serviço:
 
@@ -15,7 +14,7 @@ Segue os endpoints do serviço:
 
 * Restfull para realizar o cadastro do usuário
 
-https://authentication-01.herokuapp.com/user
+http://localhost:8080/users
 
 Método usado é POST
 
@@ -34,9 +33,9 @@ Método usado é POST
 ```
 ## Login
 
-* Restfull para autenticar no sistema
+* Endpoint para autenticar no sistema
 
-https://authentication-01.herokuapp.com/login
+http://localhost:8080/login
 
 Método usado é POST
 
@@ -49,9 +48,9 @@ Método usado é POST
 
 ## Perfil
 
-* Restfull para recuperar o pefil
+* Endpoint para recuperar o pefil
 
-https://authentication-01.herokuapp.com/profile/user/{id}
+http://localhost:8080/profiles/users/{id}
 
 Método usado é GET
 
