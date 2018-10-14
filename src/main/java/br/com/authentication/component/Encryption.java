@@ -18,7 +18,6 @@ public class Encryption {
 
     private static final String MODE_ENCRYPT = "SHA-256";
     private static final String FORMAT_CODE = "%02X";
-    private static final String FORMAT_UTF_8 = "UTF-8";
 
     /**
      * Método para Realizar a Criptografia

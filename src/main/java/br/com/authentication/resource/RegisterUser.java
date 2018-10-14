@@ -36,7 +36,7 @@ public class RegisterUser {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
-    private RegisterUser register;
+    private br.com.authentication.service.RegisterUser register;
 
     /**
      * Médodo usado para realizar o cadastro do cliente.
